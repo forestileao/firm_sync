@@ -58,4 +58,58 @@ defmodule FirmSync.FirmwaresTest do
       assert %Ecto.Changeset{} = Firmwares.change_firmware(firmware)
     end
   end
+
+  describe "firmware_versions" do
+    alias FirmSync.Firmwares.FirmwareVersion
+
+    import FirmSync.FirmwaresFixtures
+
+    @invalid_attrs %{version: nil}
+
+    test "list_firmware_versions/0 returns all firmware_versions" do
+      firmware_version = firmware_version_fixture()
+      assert Firmwares.list_firmware_versions() == [firmware_version]
+    end
+
+    test "get_firmware_version!/1 returns the firmware_version with given id" do
+      firmware_version = firmware_version_fixture()
+      assert Firmwares.get_firmware_version!(firmware_version.id) == firmware_version
+    end
+
+    test "create_firmware_version/1 with valid data creates a firmware_version" do
+      valid_attrs = %{version: "some version"}
+
+      assert {:ok, %FirmwareVersion{} = firmware_version} = Firmwares.create_firmware_version(valid_attrs)
+      assert firmware_version.version == "some version"
+    end
+
+    test "create_firmware_version/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Firmwares.create_firmware_version(@invalid_attrs)
+    end
+
+    test "update_firmware_version/2 with valid data updates the firmware_version" do
+      firmware_version = firmware_version_fixture()
+      update_attrs = %{version: "some updated version"}
+
+      assert {:ok, %FirmwareVersion{} = firmware_version} = Firmwares.update_firmware_version(firmware_version, update_attrs)
+      assert firmware_version.version == "some updated version"
+    end
+
+    test "update_firmware_version/2 with invalid data returns error changeset" do
+      firmware_version = firmware_version_fixture()
+      assert {:error, %Ecto.Changeset{}} = Firmwares.update_firmware_version(firmware_version, @invalid_attrs)
+      assert firmware_version == Firmwares.get_firmware_version!(firmware_version.id)
+    end
+
+    test "delete_firmware_version/1 deletes the firmware_version" do
+      firmware_version = firmware_version_fixture()
+      assert {:ok, %FirmwareVersion{}} = Firmwares.delete_firmware_version(firmware_version)
+      assert_raise Ecto.NoResultsError, fn -> Firmwares.get_firmware_version!(firmware_version.id) end
+    end
+
+    test "change_firmware_version/1 returns a firmware_version changeset" do
+      firmware_version = firmware_version_fixture()
+      assert %Ecto.Changeset{} = Firmwares.change_firmware_version(firmware_version)
+    end
+  end
 end
