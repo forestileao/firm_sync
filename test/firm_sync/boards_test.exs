@@ -8,7 +8,7 @@ defmodule FirmSync.BoardsTest do
 
     import FirmSync.BoardsFixtures
 
-    @invalid_attrs %{id: nil, name: nil, boardType: nil, manufacturer: nil, mac_address: nil}
+    @invalid_attrs %{name: nil, boardType: nil, manufacturer: nil, mac_address: nil}
 
     test "list_boards/0 returns all boards" do
       board = board_fixture()
@@ -21,10 +21,9 @@ defmodule FirmSync.BoardsTest do
     end
 
     test "create_board/1 with valid data creates a board" do
-      valid_attrs = %{id: "7488a646-e31f-11e4-aace-600308960662", name: "some name", boardType: :esp_32, manufacturer: "some manufacturer", mac_address: "some mac_address"}
+      valid_attrs = %{name: "some name", boardType: :esp_32, manufacturer: "some manufacturer", mac_address: "some mac_address"}
 
       assert {:ok, %Board{} = board} = Boards.create_board(valid_attrs)
-      assert board.id == "7488a646-e31f-11e4-aace-600308960662"
       assert board.name == "some name"
       assert board.boardType == :esp_32
       assert board.manufacturer == "some manufacturer"
@@ -37,10 +36,9 @@ defmodule FirmSync.BoardsTest do
 
     test "update_board/2 with valid data updates the board" do
       board = board_fixture()
-      update_attrs = %{id: "7488a646-e31f-11e4-aace-600308960668", name: "some updated name", boardType: :arduino, manufacturer: "some updated manufacturer", mac_address: "some updated mac_address"}
+      update_attrs = %{name: "some updated name", boardType: :arduino, manufacturer: "some updated manufacturer", mac_address: "some updated mac_address"}
 
       assert {:ok, %Board{} = board} = Boards.update_board(board, update_attrs)
-      assert board.id == "7488a646-e31f-11e4-aace-600308960668"
       assert board.name == "some updated name"
       assert board.boardType == :arduino
       assert board.manufacturer == "some updated manufacturer"

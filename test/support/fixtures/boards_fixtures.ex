@@ -12,7 +12,6 @@ defmodule FirmSync.BoardsFixtures do
       attrs
       |> Enum.into(%{
         boardType: :esp_32,
-        id: "7488a646-e31f-11e4-aace-600308960662",
         mac_address: "some mac_address",
         manufacturer: "some manufacturer",
         name: "some name"
