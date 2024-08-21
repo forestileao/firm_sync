@@ -2,6 +2,8 @@ defmodule FirmSync.Boards.Board do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias FirmSync.FirmwareUpdateRequests.FirmwareUpdateRequest
+
   @available_board_types [:esp_32, :arduino]
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -11,7 +13,7 @@ defmodule FirmSync.Boards.Board do
     field :boardType, Ecto.Enum, values: @available_board_types
     field :manufacturer, :string
     field :mac_address, :string
-
+    has_many :firmware_update_requests, FirmwareUpdateRequest
     timestamps()
   end
 
