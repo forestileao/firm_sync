@@ -1,0 +1,23 @@
+version: '3'
+services:
+  localstack:
+    image: localstack/localstack
+    environment:
+      - SERVICES=s3
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - AWS_ACCESS_KEY_ID=pastelawsacesskey
+      - AWS_SECRET_ACCESS_KEY=pastelawssecretacesskey
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_DEFAULT_OUTPUT=json
+      - PERSISTENCE=1
+    ports:
+      - "4566:4566" # s3
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "batata123"
+    ports:
+      - "5432:5432"

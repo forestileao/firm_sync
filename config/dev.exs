@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :firm_sync, FirmSync.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "batata123",
   hostname: "localhost",
   database: "firm_sync_dev",
   stacktrace: true,
